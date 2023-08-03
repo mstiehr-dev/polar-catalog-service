@@ -2,14 +2,21 @@ package de.mstiehr.polar.catalogservice.persistence;
 
 import de.mstiehr.polar.catalogservice.domain.Book;
 import de.mstiehr.polar.catalogservice.domain.BookRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+
+
 
 @Repository
 public class InMemoryBookRepository implements BookRepository {
+
+    private final static Logger log = LoggerFactory.getLogger(InMemoryBookRepository.class);
 
     private static final Map<String, Book> books = new ConcurrentHashMap<>();
     @Override
@@ -32,7 +39,16 @@ public class InMemoryBookRepository implements BookRepository {
     @Override
     public Book save(Book book) {
         // implementation differs from the book
-        return books.put(book.isbn(), book);
+        var storedBook = books.put(book.isbn(), book);
+
+        try {
+            var delay = new Random().nextInt(2000);
+            Thread.sleep(delay);
+        } catch (Exception e) {
+            log.error("Failed to delay response");
+        }
+
+        return storedBook;
     }
 
     @Override

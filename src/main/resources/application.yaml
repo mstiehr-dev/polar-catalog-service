@@ -6,3 +6,8 @@ server:
     threads:
       max: 50
       min-spare: 5
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics,prometheus

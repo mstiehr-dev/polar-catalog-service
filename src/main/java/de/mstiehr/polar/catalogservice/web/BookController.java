@@ -2,6 +2,7 @@ package de.mstiehr.polar.catalogservice.web;
 
 import de.mstiehr.polar.catalogservice.domain.Book;
 import de.mstiehr.polar.catalogservice.domain.BookService;
+import io.micrometer.core.annotation.Timed;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class BookController {
     }
 
     @GetMapping
+    @Timed(value="books.rest.list", description="time it takes to list all the books")
     public Iterable<Book> get() {
         return bookService.viewBookList();
     }
@@ -33,6 +35,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Timed(value="books.rest.create", description="time it takes to create a book")
     public Book post(@Valid @RequestBody Book book) {
         return bookService.addBookToCatalog(book);
     }
