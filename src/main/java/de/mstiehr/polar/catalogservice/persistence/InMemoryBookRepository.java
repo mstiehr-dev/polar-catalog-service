@@ -39,16 +39,16 @@ public class InMemoryBookRepository implements BookRepository {
     @Override
     public Book save(Book book) {
         // implementation differs from the book
-        var storedBook = books.put(book.isbn(), book);
+        books.put(book.isbn(), book);
 
         try {
-            var delay = new Random().nextInt(2000);
+            var delay = new Random().nextInt(1000);
             Thread.sleep(delay);
         } catch (Exception e) {
             log.error("Failed to delay response");
         }
 
-        return storedBook;
+        return book;
     }
 
     @Override
