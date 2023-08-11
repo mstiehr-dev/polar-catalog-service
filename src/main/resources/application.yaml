@@ -11,3 +11,6 @@ management:
     web:
       exposure:
         include: info,health,metrics,prometheus
+
+polar:
+  greeting: welcome to the local book catalog!

@@ -41,13 +41,6 @@ public class InMemoryBookRepository implements BookRepository {
         // implementation differs from the book
         books.put(book.isbn(), book);
 
-        try {
-            var delay = new Random().nextInt(1000);
-            Thread.sleep(delay);
-        } catch (Exception e) {
-            log.error("Failed to delay response");
-        }
-
         return book;
     }
 
